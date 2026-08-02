@@ -1,0 +1,271 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * PARIDHI — exhibition design system.
+ * Monochrome only. Serif display + swiss sans body.
+ */
+
+@theme inline {
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-xl: 0px;
+  --radius-2xl: 0px;
+  --radius-3xl: 0px;
+  --radius-4xl: 0px;
+  --font-display: "Bodoni Moda", "Times New Roman", serif;
+  --font-sans: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+  --color-subtle-foreground: var(--subtle-foreground);
+}
+
+
+:root {
+  --radius: 0px;
+  --background: oklch(0.145 0 0); /* #050505 */
+  --foreground: oklch(0.985 0 0); /* near-white, high contrast */
+  --surface: oklch(0.205 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(1 0 0);
+  --primary-foreground: oklch(0.145 0 0);
+  --secondary: oklch(0.205 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.205 0 0);
+  --muted-foreground: oklch(0.795 0 0); /* AA-safe secondary text */
+  --subtle-foreground: oklch(0.68 0 0); /* metadata only */
+  --accent: oklch(1 0 0);
+  --accent-foreground: oklch(0.145 0 0);
+  --destructive: oklch(0.55 0 0);
+  --destructive-foreground: oklch(0.985 0 0);
+  --border: oklch(1 0 0 / 20%);
+  --input: oklch(1 0 0 / 22%);
+  --ring: oklch(1 0 0 / 40%);
+
+  --ease-glide: cubic-bezier(0.16, 1, 0.3, 1);
+  --rule: 1px solid oklch(1 0 0 / 20%);
+}
+
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.929 0 0);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    background-color: var(--color-background);
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    font-synthesis-weight: none;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: oklch(1 0 0);
+    color: oklch(0.145 0 0);
+  }
+
+  ::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+}
+
+@utility display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  line-height: 0.86;
+}
+
+@utility eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--color-muted-foreground);
+}
+
+/* Tiny metadata — dates, reading time, page markers. */
+@utility marker {
+  font-family: var(--font-sans);
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--color-subtle-foreground);
+}
+
+/* Editorial caption sitting under plates and figures. */
+@utility caption {
+  font-family: var(--font-display);
+  font-size: 0.9375rem;
+  font-style: italic;
+  letter-spacing: 0;
+  line-height: 1.6;
+  color: var(--color-muted-foreground);
+}
+
+/* Standfirst / lede paragraph. */
+@utility lede {
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 2.1vw, 1.95rem);
+  line-height: 1.5;
+  letter-spacing: -0.012em;
+  color: var(--color-foreground);
+}
+
+/* Running body copy — larger and calmer than default. */
+@utility copy {
+  font-family: var(--font-sans);
+  font-size: clamp(1rem, 1.08vw, 1.125rem);
+  line-height: 1.85;
+  letter-spacing: 0.004em;
+  color: var(--color-muted-foreground);
+  max-width: 38em;
+}
+
+@utility rule-t {
+  border-top: var(--rule);
+}
+
+@utility rule-b {
+  border-bottom: var(--rule);
+}
+
+/* Delicate centred divider between movements. */
+@utility divider {
+  display: block;
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(
+    to right,
+    transparent,
+    oklch(1 0 0 / 0.28) 22%,
+    oklch(1 0 0 / 0.28) 78%,
+    transparent
+  );
+}
+
+@utility chapter {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-inline: 8vw;
+  padding-block: 20vh;
+}
+
+/* Generous editorial section rhythm. */
+@utility spread {
+  position: relative;
+  padding-inline: 8vw;
+  padding-block: 18vh;
+}
+
+
+/* Film grain */
+@utility grain-layer {
+  position: fixed;
+  inset: -150%;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.055;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/></filter><rect width='200' height='200' filter='url(%23n)'/></svg>");
+  animation: grain-shift 700ms steps(2) infinite;
+}
+
+@utility vignette-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 55;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 45%,
+    oklch(0 0 0 / 0.55) 100%
+  );
+}
+
+@keyframes grain-shift {
+  0% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(-2%, 1%);
+  }
+  50% {
+    transform: translate(1%, -2%);
+  }
+  75% {
+    transform: translate(-1%, -1%);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .grain-layer {
+    animation: none;
+  }
+}
+
+@utility story-link {
+  position: relative;
+  display: inline-block;
+}
+.story-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  height: 1px;
+  width: 100%;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.story-link:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
