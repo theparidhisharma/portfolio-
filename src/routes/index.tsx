@@ -80,7 +80,6 @@ function Exhibition() {
       >
         <Colophon />
         <ChapterOne />
-        <MarqueeBand />
         <Manifesto />
         <WorksIntro />
         {WORKS.map((work, i) => (
@@ -210,16 +209,6 @@ function ChapterOne() {
   );
 }
 
-function MarqueeBand() {
-  return (
-    <section className="relative overflow-hidden rule-t rule-b py-[7vh]">
-      <Marquee text="Engineer · Designer · Builder · Distributed Systems · Interfaces" />
-      <div className="mt-[6vh] px-[6vw]">
-        <ContributionBelt />
-      </div>
-    </section>
-  );
-}
 
 function Journal() {
   return (
