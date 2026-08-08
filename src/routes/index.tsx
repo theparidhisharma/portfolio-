@@ -21,17 +21,17 @@ import { getFeatureImage } from "@/lib/feature-images";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "PARIDHI — Engineer. Designer. Builder." },
+      { title: "PARIDHI: Engineer. Designer. Builder." },
       {
         name: "description",
         content:
-          "An exhibition of systems by Paridhi Sharma — distributed architecture, predictive intelligence, and interfaces built to be remembered.",
+          "An exhibition of systems by Paridhi Sharma: distributed architecture, predictive intelligence, and interfaces built to be remembered.",
       },
-      { property: "og:title", content: "PARIDHI — Engineer. Designer. Builder." },
+      { property: "og:title", content: "PARIDHI: Engineer. Designer. Builder." },
       {
         property: "og:description",
         content:
-          "An exhibition of systems by Paridhi Sharma — distributed architecture, predictive intelligence, and interfaces built to be remembered.",
+          "An exhibition of systems by Paridhi Sharma: distributed architecture, predictive intelligence, and interfaces built to be remembered.",
       },
     ],
   }),
@@ -130,7 +130,7 @@ function ChapterOne() {
 
   return (
     <section className="chapter relative justify-end overflow-hidden">
-      {/* layered ghost name — the type behind the type */}
+      {/* layered ghost name: the type behind the type */}
       <motion.span
         aria-hidden
         className="display pointer-events-none absolute left-[-6vw] top-[6vh] select-none text-[38vw] leading-none text-foreground/[0.045] md:text-[26vw]"
@@ -148,7 +148,7 @@ function ChapterOne() {
 
       <motion.div className="relative" style={{ y }}>
         <div className="mb-16 flex items-baseline justify-between rule-t pt-6">
-          <p className="eyebrow">Chapter One — The Name</p>
+          <p className="eyebrow">Chapter One: The Name</p>
           <span className="marker hidden md:block">Private view · Delhi · By invitation</span>
         </div>
         <h1 className="display text-[19vw] leading-[0.8] md:text-[15vw]">
@@ -224,7 +224,7 @@ function Journal() {
   return (
     <section id="journal" className="scroll-mt-24 px-[6vw] py-[16vh]">
       <div className="mb-14 flex items-baseline justify-between rule-t pt-6">
-        <p className="eyebrow">Chapter Five — Journal</p>
+        <p className="eyebrow">Chapter Five: Journal</p>
         <span className="marker">
           {String(BLOG_POSTS.length).padStart(2, "0")} entries · hover to read
         </span>
@@ -241,7 +241,7 @@ function Dispatches() {
   return (
     <section id="dispatches" className="scroll-mt-24 px-[6vw] py-[14vh]">
       <div className="mb-14 flex items-baseline justify-between rule-t pt-6">
-        <p className="eyebrow">Chapter Six — Dispatches</p>
+        <p className="eyebrow">Chapter Six: Dispatches</p>
         <span className="marker hidden md:block">Recent activity · LinkedIn</span>
       </div>
       <h2 className="display mb-[7vh] text-[11vw] leading-[0.88] md:text-[5vw]">
@@ -256,7 +256,7 @@ function Dispatches() {
 function Manifesto() {
   return (
     <section id="manifesto" className="chapter scroll-mt-24">
-      <p className="eyebrow mb-20">Chapter Two — Manifesto</p>
+      <p className="eyebrow mb-20">Chapter Two: Manifesto</p>
       <div className="max-w-[62rem]">
         <h2 className="display text-[8vw] leading-[0.95] md:text-[4.6vw]">
           <SplitLine text="Portfolios are easy. Systems are not." />
@@ -346,7 +346,7 @@ function WorkPlate({ work, position }: { work: (typeof WORKS)[number]; position:
             {image ? (
               <ImagePlate
                 src={image}
-                alt={`${work.title} — ${work.discipline}`}
+                alt={`${work.title}: ${work.discipline}`}
                 glyph={work.glyph}
                 label={`Feature_${number}`}
                 caption={work.plateCaption}
@@ -402,7 +402,7 @@ function WorkPlate({ work, position }: { work: (typeof WORKS)[number]; position:
 function Record() {
   return (
     <section id="record" className="chapter scroll-mt-24">
-      <p className="eyebrow mb-20">Chapter Four — Record</p>
+      <p className="eyebrow mb-20">Chapter Four: Record</p>
       <div>
         {RECORD.map((item, i) => (
           <Fade key={item.title} delay={i * 0.08}>
@@ -435,7 +435,7 @@ function Closing() {
   return (
     <section id="contact" className="chapter scroll-mt-24 items-center justify-center text-center">
       <Fade>
-        <p className="eyebrow mb-14">Chapter Seven — Correspondence</p>
+        <p className="eyebrow mb-14">Chapter Seven: Correspondence</p>
       </Fade>
       <h2 className="display text-[12vw] leading-[0.85] md:text-[7vw]">
         <SplitLine text="Do you wanna build a snowman? (let me know)" stagger={0.14} />
