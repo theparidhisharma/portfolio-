@@ -10,6 +10,7 @@ import {
 import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
+import { reportError } from "../lib/error-reporting";
 import { SmoothScroll } from "@/components/exhibition/SmoothScroll";
 import { Atmosphere, Cursor } from "@/components/exhibition/Atmosphere";
 import { ThemeProvider, themeBootstrapScript } from "@/components/exhibition/Theme";
@@ -40,7 +41,7 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   console.error(error);
   const router = useRouter();
   useEffect(() => {
-    reportLovableError(error, { boundary: "tanstack_root_error_component" });
+    reportError(error, { boundary: "tanstack_root_error_component" });
   }, [error]);
 
   return (

@@ -80,6 +80,7 @@ function Exhibition() {
       >
         <Colophon />
         <ChapterOne />
+        <MarqueeBand />
         <Manifesto />
         <WorksIntro />
         {WORKS.map((work, i) => (
@@ -106,7 +107,7 @@ function Colophon() {
       className="pointer-events-none fixed inset-x-0 top-0 z-50 flex items-start justify-between px-[6vw] py-8 mix-blend-difference light:mix-blend-normal"
     >
       <span className="eyebrow text-foreground">Paridhi Sharma</span>
-      <span className="eyebrow hidden text-foreground md:block">Exhibition </span>
+      <span className="eyebrow hidden text-foreground md:block">Exhibition MMXXVI</span>
       <div className="flex items-center gap-8">
         <a
           className="eyebrow pointer-events-auto text-foreground transition-opacity duration-500 hover:opacity-50"
@@ -209,6 +210,15 @@ function ChapterOne() {
   );
 }
 
+function MarqueeBand() {
+  return (
+    <section className="relative overflow-hidden rule-t rule-b py-[7vh]">
+      <div className="mt-[6vh] px-[6vw]">
+        <ContributionBelt />
+      </div>
+    </section>
+  );
+}
 
 function Journal() {
   return (
