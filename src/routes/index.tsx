@@ -7,7 +7,6 @@ import { ThemeToggle, useTheme } from "@/components/exhibition/Theme";
 import { Fade, SplitLine, ScrollText } from "@/components/exhibition/Reveal";
 import { Magnetic } from "@/components/exhibition/Magnetic";
 import { GlyphPlate, FieldTexture, ImagePlate, Hairlines } from "@/components/exhibition/Plates";
-import { Marquee } from "@/components/exhibition/Marquee";
 import { FunFacts } from "@/components/exhibition/FunFacts";
 import { CollageGallery } from "@/components/exhibition/CollageGallery";
 import { LinkedInWall } from "@/components/exhibition/LinkedInWall";
@@ -108,7 +107,7 @@ function Colophon() {
       className="pointer-events-none fixed inset-x-0 top-0 z-50 flex items-start justify-between px-[6vw] py-8 mix-blend-difference light:mix-blend-normal"
     >
       <span className="eyebrow text-foreground">Paridhi Sharma</span>
-      <span className="eyebrow hidden text-foreground md:block">Exhibition MMXXVI</span>
+      <span className="eyebrow hidden text-foreground md:block">Exhibition </span>
       <div className="flex items-center gap-8">
         <a
           className="eyebrow pointer-events-auto text-foreground transition-opacity duration-500 hover:opacity-50"
