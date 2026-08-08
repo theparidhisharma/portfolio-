@@ -438,7 +438,7 @@ function Closing() {
         <p className="eyebrow mb-14">Chapter Seven — Correspondence</p>
       </Fade>
       <h2 className="display text-[12vw] leading-[0.85] md:text-[7vw]">
-        <SplitLine text="Say something" stagger={0.14} />
+        <SplitLine text="Do you wanna build a snowman? (let me know)" stagger={0.14} />
       </h2>
       <Fade delay={0.4}>
         <Magnetic
