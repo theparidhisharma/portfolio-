@@ -36,7 +36,7 @@ export function Cursor() {
   return (
     <motion.div
       aria-hidden
-      className="pointer-events-none fixed left-0 top-0 z-[70] hidden mix-blend-difference md:block"
+      className="pointer-events-none fixed left-0 top-0 z-[70] hidden mix-blend-difference light:mix-blend-normal md:block"
       style={{ x: sx, y: sy }}
     >
       <motion.span

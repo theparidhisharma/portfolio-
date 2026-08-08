@@ -232,3 +232,70 @@ export function FieldTexture({ className = "" }: { className?: string }) {
     </div>
   );
 }
+
+/** Photographic plate — image treated as a framed exhibition print. */
+export function ImagePlate({
+  src,
+  alt,
+  glyph,
+  label,
+  caption,
+  ratio = "aspect-[4/3]",
+  className = "",
+  priority = false,
+}: {
+  src: string;
+  alt: string;
+  glyph?: string;
+  label?: string;
+  caption?: string;
+  ratio?: string;
+  className?: string;
+  priority?: boolean;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-8% 0px" });
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
+  const y = useTransform(scrollYProgress, [0, 1], ["-8%", "8%"]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1.14, 1.02]);
+
+  return (
+    <div ref={ref} className={className}>
+      <div className={`group relative w-full overflow-hidden bg-surface ${ratio}`}>
+        <motion.img
+          src={src}
+          alt={alt}
+          width={1600}
+          height={1008}
+          {...(priority ? {} : { loading: "lazy" as const })}
+          style={{ y, scale }}
+          className="absolute inset-0 h-[116%] w-full object-cover opacity-70 grayscale transition-opacity duration-[1400ms] group-hover:opacity-95 light:opacity-90 light:contrast-[1.08] light:group-hover:opacity-100"
+        />
+        <span aria-hidden className="absolute inset-0 bg-background/35 light:bg-background/15" />
+        <motion.span
+          aria-hidden
+          className="absolute inset-0 z-20 origin-top bg-background"
+          initial={{ scaleY: 1 }}
+          animate={{ scaleY: inView ? 0 : 1 }}
+          transition={{ duration: 2.1, ease: EASE }}
+        />
+        <div className="absolute inset-0 opacity-60">
+          <Hairlines columns={6} rows={4} />
+        </div>
+        <CornerTicks />
+        {glyph ? (
+          <span className="display pointer-events-none absolute inset-0 z-10 flex items-center justify-center text-[30vw] leading-none text-foreground mix-blend-difference light:mix-blend-multiply light:text-foreground/15 md:text-[13vw]">
+            {glyph}
+          </span>
+        ) : null}
+        {label ? <span className="eyebrow absolute left-5 top-5 z-10">{label}</span> : null}
+      </div>
+      {caption ? (
+        <p className="eyebrow mt-5 flex items-center gap-4">
+          <span className="inline-block h-[1px] w-10 bg-border" />
+          {caption}
+        </p>
+      ) : null}
+    </div>
+  );
+}

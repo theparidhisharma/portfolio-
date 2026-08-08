@@ -7,9 +7,13 @@ import {
   DiagramPlate,
   FieldTexture,
   Hairlines,
+  ImagePlate,
 } from "@/components/exhibition/Plates";
 import { WORKS, getWork, SOCIALS, type Work } from "@/lib/works";
 import { getFeature, type Feature } from "@/lib/features";
+import { getFeatureImage } from "@/lib/feature-images";
+import { ThemeToggle, useTheme } from "@/components/exhibition/Theme";
+import { Navbar } from "@/components/exhibition/Navbar";
 
 export const Route = createFileRoute("/work/$slug")({
   loader: ({ params }) => {
@@ -51,6 +55,9 @@ function FeaturePage() {
   });
   const heroY = useTransform(scrollYProgress, [0, 1], ["0%", "22%"]);
   const heroFade = useTransform(scrollYProgress, [0, 1], [1, 0.3]);
+  const heroImageY = useTransform(scrollYProgress, [0, 1], ["0%", "12%"]);
+  const { mode } = useTheme();
+  const heroImage = getFeatureImage(work.slug, mode);
 
   const { scrollYProgress: pageProgress } = useScroll();
   const bar = useSpring(pageProgress, { stiffness: 60, damping: 30, mass: 0.6 });
@@ -68,21 +75,41 @@ function FeaturePage() {
       transition={{ duration: 1.9, ease: EASE }}
     >
       <motion.div
-        className="fixed inset-x-0 top-0 z-[65] h-[1px] origin-left bg-primary"
+        className="fixed inset-x-0 top-0 z-[68] h-[1px] origin-left bg-primary"
         style={{ scaleX: bar }}
       />
-      <div className="pointer-events-none fixed inset-x-0 top-0 z-50 flex items-start justify-between px-[8vw] py-8 mix-blend-difference">
+      <Navbar />
+      <div className="pointer-events-none fixed inset-x-0 top-0 z-50 flex items-start justify-between px-[8vw] py-8 mix-blend-difference light:mix-blend-normal">
         <Link
           to="/"
           className="eyebrow pointer-events-auto text-foreground transition-opacity duration-700 hover:opacity-60"
         >
           ← Exhibition
         </Link>
-        <span className="marker text-foreground">Feature_{feature.number}</span>
+        <div className="flex items-center gap-8">
+          <span className="marker text-foreground">Feature_{feature.number}</span>
+          <ThemeToggle className="pointer-events-auto" />
+        </div>
       </div>
 
       {/* Full-screen editorial hero */}
       <header ref={heroRef} className="relative flex h-[105svh] items-end overflow-hidden">
+        {heroImage ? (
+          <motion.div
+            aria-hidden
+            className="absolute inset-0"
+            style={{ y: heroImageY, opacity: heroFade }}
+          >
+            <img
+              src={heroImage}
+              alt=""
+              width={1600}
+              height={1008}
+              className="h-[118%] w-full object-cover opacity-40 grayscale light:opacity-55 light:contrast-[1.1]"
+            />
+            <span className="absolute inset-0 bg-gradient-to-t from-background via-background/70 to-background/30 light:via-background/75 light:to-background/35" />
+          </motion.div>
+        ) : null}
         <motion.span
           aria-hidden
           className="display absolute right-[4vw] top-[8vh] select-none text-[46vw] leading-none text-foreground/[0.07] md:text-[28vw]"
@@ -335,6 +362,16 @@ function FeaturePage() {
               ratio={gi % 2 === 0 ? "aspect-[16/10]" : "aspect-[4/3]"}
             />
           ))}
+          {heroImage ? (
+            <ImagePlate
+              className="md:col-span-12"
+              src={heroImage}
+              alt={`${work.title} — exhibition plate`}
+              label={`Plate ${feature.number}b`}
+              caption={`Fig. ${feature.number}b — ${work.discipline.toLowerCase()}, printed large`}
+              ratio="aspect-[21/9]"
+            />
+          ) : null}
           <div className="md:col-span-4">
             <FieldTexture className="opacity-[0.35]" />
             <p className="caption mt-6">Fig. {feature.number}c — signal field</p>
