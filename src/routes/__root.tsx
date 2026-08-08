@@ -10,7 +10,6 @@ import {
 import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
-import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SmoothScroll } from "@/components/exhibition/SmoothScroll";
 import { Atmosphere, Cursor } from "@/components/exhibition/Atmosphere";
 import { ThemeProvider, themeBootstrapScript } from "@/components/exhibition/Theme";
