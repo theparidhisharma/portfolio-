@@ -197,5 +197,5 @@ export const SOCIALS = {
   leetcode: "https://leetcode.com/u/theparidhisharma/",
   email: "paridhi0203sharma@gmail.com",
   resume:
-    "https://drive.google.com/file/d/1ywG9grgBQ6Qx356CN_cXsuKipOyG9uYq/view?usp=sharing",
+    "https://drive.google.com/file/d/1-n5lA0o6DnnOYZlyYcOxFbohkTVgsRdi/view?usp=sharing",
 };
