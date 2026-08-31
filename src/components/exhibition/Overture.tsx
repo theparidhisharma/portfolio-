@@ -116,7 +116,7 @@ export function Overture({ onEnter }: { onEnter: () => void }) {
           animate={{ opacity: revealed && !leaving ? 1 : 0 }}
           transition={{ duration: 1.4, ease: EASE, delay: 1.2 }}
         >
-          <span className="marker">Plate I — The Name</span>
+          <span className="marker"></span>
           <span className="marker hidden md:block">Gelatin ink on paper stock</span>
         </motion.div>
       </div>
