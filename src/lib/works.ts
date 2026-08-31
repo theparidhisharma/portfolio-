@@ -121,7 +121,10 @@ export const WORKS: Work[] = [
       { value: 6, suffix: "", label: "EY Techathon semi-final" },
       { value: 1, suffix: "", label: "Solo participant" },
     ],
-    links: [{ label: "Repository", href: "https://github.com/theparidhisharma/AutoIQ" }],
+    links: [
+      { label: "Repository", href: "https://github.com/theparidhisharma/AutoIQ" },
+      { label: "Live", href: "https://theparidhisharma.github.io/AutoIQ/" },
+    ],
   },
   {
     slug: "student-portal",
