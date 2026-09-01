@@ -30,6 +30,7 @@ export function Overture({ onEnter }: { onEnter: () => void }) {
   useEffect(() => {
     const t1 = setTimeout(() => setRevealed(true), 700);
     const t2 = setTimeout(() => setEnterVisible(true), 4200);
+
     return () => {
       clearTimeout(t1);
       clearTimeout(t2);
@@ -40,13 +41,20 @@ export function Overture({ onEnter }: { onEnter: () => void }) {
     const start = performance.now();
     const duration = 4000;
     let raf = 0;
+
     const tick = (now: number) => {
       const t = Math.min(1, (now - start) / duration);
       const eased = 1 - Math.pow(1 - t, 3);
+
       setCount(Math.round(eased * 100));
-      if (t < 1) raf = requestAnimationFrame(tick);
+
+      if (t < 1) {
+        raf = requestAnimationFrame(tick);
+      }
     };
+
     raf = requestAnimationFrame(tick);
+
     return () => cancelAnimationFrame(raf);
   }, []);
 
@@ -55,17 +63,24 @@ export function Overture({ onEnter }: { onEnter: () => void }) {
       px.set((e.clientX / window.innerWidth - 0.5) * 26);
       py.set((e.clientY / window.innerHeight - 0.5) * 14);
     };
+
     window.addEventListener("pointermove", move);
+
     return () => window.removeEventListener("pointermove", move);
   }, [px, py]);
 
   const done = useMemo(
-    () => MANIFEST.map((_, i) => count >= Math.round(((i + 1) / MANIFEST.length) * 96)),
+    () =>
+      MANIFEST.map(
+        (_, i) =>
+          count >= Math.round(((i + 1) / MANIFEST.length) * 96),
+      ),
     [count],
   );
 
   const enter = () => {
     if (leaving) return;
+
     setLeaving(true);
     setTimeout(onEnter, 1500);
   };
@@ -75,13 +90,53 @@ export function Overture({ onEnter }: { onEnter: () => void }) {
       className="fixed inset-0 z-[80] overflow-hidden bg-background"
       initial={{ opacity: 1 }}
       animate={{ opacity: leaving ? 0 : 1 }}
-      transition={{ duration: 0.6, ease: EASE, delay: leaving ? 0.9 : 0 }}
+      transition={{
+        duration: 0.6,
+        ease: EASE,
+        delay: leaving ? 0.9 : 0,
+      }}
     >
       {/* ── the plate: inverted panel that the slats uncover ───────────── */}
       <div className="absolute inset-x-0 top-1/2 -translate-y-1/2">
         <div className="relative flex h-[46svh] items-center justify-center overflow-hidden bg-foreground">
+
+          {/* ── subtle portrait atmosphere ─────────────────────────────── */}
+          <motion.img
+            src="/images/paridhi-night.jpg"
+            alt=""
+            aria-hidden="true"
+            className="absolute inset-0 h-full w-full object-cover object-center grayscale"
+            initial={{ opacity: 0, scale: 1.04 }}
+            animate={{
+              opacity: revealed ? 0.28 : 0,
+              scale: leaving ? 1.08 : 1,
+            }}
+            transition={{
+              opacity: {
+                duration: 1.8,
+                ease: EASE,
+              },
+              scale: {
+                duration: 1.8,
+                ease: EASE,
+              },
+            }}
+          />
+
+          {/* ── darkens the photograph so the typography stays dominant ── */}
+          <motion.div
+            aria-hidden="true"
+            className="absolute inset-0 bg-foreground/55"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: revealed ? 1 : 0 }}
+            transition={{
+              duration: 1.6,
+              ease: EASE,
+            }}
+          />
+
           <motion.h1
-            className="display flex select-none justify-center text-[19vw] leading-none text-background md:text-[13vw]"
+            className="display relative z-10 flex select-none justify-center text-[19vw] leading-none text-background md:text-[13vw]"
             style={{ x: tx, y: ty }}
             animate={{ scale: leaving ? 1.06 : 1 }}
             transition={{ duration: 1.4, ease: EASE }}
@@ -91,8 +146,15 @@ export function Overture({ onEnter }: { onEnter: () => void }) {
                 key={`${ch}-${i}`}
                 className="inline-block"
                 initial={{ y: "18%", opacity: 0 }}
-                animate={{ y: revealed ? "0%" : "18%", opacity: revealed ? 1 : 0 }}
-                transition={{ duration: 1.4, ease: EASE, delay: 0.5 + 0.07 * i }}
+                animate={{
+                  y: revealed ? "0%" : "18%",
+                  opacity: revealed ? 1 : 0,
+                }}
+                transition={{
+                  duration: 1.4,
+                  ease: EASE,
+                  delay: 0.5 + 0.07 * i,
+                }}
               >
                 {ch}
               </motion.span>
@@ -105,7 +167,10 @@ export function Overture({ onEnter }: { onEnter: () => void }) {
             className="absolute inset-x-0 bottom-0 block h-[1px] origin-left bg-background/40"
             initial={{ scaleX: 0 }}
             animate={{ scaleX: count / 100 }}
-            transition={{ duration: 0.2, ease: "linear" }}
+            transition={{
+              duration: 0.2,
+              ease: "linear",
+            }}
           />
         </div>
 
@@ -113,27 +178,45 @@ export function Overture({ onEnter }: { onEnter: () => void }) {
         <motion.div
           className="mt-4 flex items-baseline justify-between px-[6vw]"
           initial={{ opacity: 0 }}
-          animate={{ opacity: revealed && !leaving ? 1 : 0 }}
-          transition={{ duration: 1.4, ease: EASE, delay: 1.2 }}
+          animate={{
+            opacity: revealed && !leaving ? 1 : 0,
+          }}
+          transition={{
+            duration: 1.4,
+            ease: EASE,
+            delay: 1.2,
+          }}
         >
           <span className="marker"></span>
-          <span className="marker hidden md:block">Gelatin ink on paper stock</span>
+          <span className="marker hidden md:block">
+            Gelatin ink on paper stock
+          </span>
         </motion.div>
       </div>
 
       {/* ── slats: vertical panels that lift to uncover the plate ──────── */}
-      <div aria-hidden className="pointer-events-none absolute inset-0 flex">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 flex"
+      >
         {Array.from({ length: SLATS }).map((_, i) => (
           <motion.span
             key={i}
             className="block h-full flex-1 origin-top bg-background"
-            style={{ boxShadow: "0 0 0 0.5px var(--color-border)" }}
+            style={{
+              boxShadow:
+                "0 0 0 0.5px var(--color-border)",
+            }}
             initial={{ scaleY: 1 }}
-            animate={{ scaleY: leaving ? 1 : revealed ? 0 : 1 }}
+            animate={{
+              scaleY: leaving ? 1 : revealed ? 0 : 1,
+            }}
             transition={{
               duration: leaving ? 0.75 : 1.5,
               ease: EASE,
-              delay: leaving ? 0.05 * (SLATS - 1 - i) : 0.09 * i,
+              delay: leaving
+                ? 0.05 * (SLATS - 1 - i)
+                : 0.09 * i,
             }}
           />
         ))}
@@ -144,16 +227,29 @@ export function Overture({ onEnter }: { onEnter: () => void }) {
         <motion.span
           className="eyebrow"
           initial={{ opacity: 0 }}
-          animate={{ opacity: leaving ? 0 : 1 }}
-          transition={{ duration: 1.2, ease: EASE, delay: 0.2 }}
+          animate={{
+            opacity: leaving ? 0 : 1,
+          }}
+          transition={{
+            duration: 1.2,
+            ease: EASE,
+            delay: 0.2,
+          }}
         >
           Exhibition MMXXVI
         </motion.span>
+
         <motion.span
           className="eyebrow hidden md:block"
           initial={{ opacity: 0 }}
-          animate={{ opacity: leaving ? 0 : 1 }}
-          transition={{ duration: 1.2, ease: EASE, delay: 0.35 }}
+          animate={{
+            opacity: leaving ? 0 : 1,
+          }}
+          transition={{
+            duration: 1.2,
+            ease: EASE,
+            delay: 0.35,
+          }}
         >
           Delhi, India
         </motion.span>
@@ -165,19 +261,34 @@ export function Overture({ onEnter }: { onEnter: () => void }) {
           <motion.div
             key={line}
             className="flex items-baseline gap-3 py-[0.35rem]"
-            initial={{ opacity: 0, y: 6 }}
+            initial={{
+              opacity: 0,
+              y: 6,
+            }}
             animate={{
               opacity: leaving ? 0 : done[i] ? 1 : 0.35,
               y: 0,
             }}
-            transition={{ duration: 0.8, ease: EASE, delay: 0.2 * i }}
+            transition={{
+              duration: 0.8,
+              ease: EASE,
+              delay: 0.2 * i,
+            }}
           >
-            <span className="marker whitespace-nowrap">{line}</span>
+            <span className="marker whitespace-nowrap">
+              {line}
+            </span>
+
             <span className="h-[1px] flex-1 translate-y-[-0.2rem] bg-border" />
+
             <motion.span
               className="marker tabular-nums"
-              animate={{ opacity: done[i] ? 1 : 0.4 }}
-              transition={{ duration: 0.4 }}
+              animate={{
+                opacity: done[i] ? 1 : 0.4,
+              }}
+              transition={{
+                duration: 0.4,
+              }}
             >
               {done[i] ? "HUNG" : "····"}
             </motion.span>
@@ -187,7 +298,12 @@ export function Overture({ onEnter }: { onEnter: () => void }) {
 
       {/* ── oversized counter, bottom right ────────────────────────────── */}
       <div className="pointer-events-none absolute bottom-[4vh] right-[6vw] flex items-end gap-4">
-        <span className="marker mb-4 hidden md:block">{count >= 100 ? "The room is ready" : "Preparing the room"}</span>
+        <span className="marker mb-4 hidden md:block">
+          {count >= 100
+            ? "The room is ready"
+            : "Preparing the room"}
+        </span>
+
         <span className="display text-[18vw] leading-[0.8] tabular-nums md:text-[9vw]">
           {String(count).padStart(2, "0")}
         </span>
@@ -197,8 +313,13 @@ export function Overture({ onEnter }: { onEnter: () => void }) {
       <motion.div
         className="absolute inset-x-0 top-[calc(50%+23svh+5.5rem)] flex justify-center"
         initial={{ opacity: 0 }}
-        animate={{ opacity: enterVisible && !leaving ? 1 : 0 }}
-        transition={{ duration: 1.4, ease: EASE }}
+        animate={{
+          opacity: enterVisible && !leaving ? 1 : 0,
+        }}
+        transition={{
+          duration: 1.4,
+          ease: EASE,
+        }}
       >
         <Magnetic
           onClick={enter}
