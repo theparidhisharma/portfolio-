@@ -7,11 +7,19 @@ import { FACTS } from "@/lib/facts";
 const EASE = [0.16, 1, 0.3, 1] as const;
 
 /** Renders a fact, turning any named links into clickable text. */
-function FactBody({ text, links }: { text: string; links?: { label: string; href: string }[] | undefined }) {
+function FactBody({
+  text,
+  links,
+}: {
+  text: string;
+  links?: { label: string; href: string }[] | undefined;
+}) {
   if (!links?.length) return <>{text}</>;
 
   const pattern = new RegExp(
-    `(${links.map((l) => l.label.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|")})`,
+    `(${links
+      .map((l) => l.label.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"))
+      .join("|")})`,
     "g",
   );
 
@@ -19,7 +27,9 @@ function FactBody({ text, links }: { text: string; links?: { label: string; href
     <>
       {text.split(pattern).map((part, i) => {
         const link = links.find((l) => l.label === part);
+
         if (!link) return <span key={i}>{part}</span>;
+
         return (
           <a
             key={i}
@@ -43,8 +53,13 @@ export function FunFacts() {
 
   const shuffle = () => {
     if (FACTS.length < 2) return;
+
     let next = index;
-    while (next === index) next = Math.floor(Math.random() * FACTS.length);
+
+    while (next === index) {
+      next = Math.floor(Math.random() * FACTS.length);
+    }
+
     setIndex(next);
     setCount((c) => c + 1);
   };
@@ -54,16 +69,58 @@ export function FunFacts() {
       <Fade>
         <div className="flex items-baseline justify-between rule-t pt-6">
           <p className="eyebrow">Marginalia — Fun Facts</p>
-          <span className="marker">{String(FACTS.length).padStart(2, "0")} entries</span>
+          <span className="marker">
+            {String(FACTS.length).padStart(2, "0")} entries
+          </span>
         </div>
       </Fade>
 
       <div className="mt-[8vh] grid gap-12 md:grid-cols-12 md:items-start">
+
+        {/* ── left: identity + portrait ──────────────────────────────── */}
         <Fade className="md:col-span-4">
-          <h2 className="display text-[11vw] leading-[0.9] md:text-[4vw]">Fun Facts</h2>
+          <h2 className="display text-[11vw] leading-[0.9] md:text-[4vw]">
+            Fun Facts
+          </h2>
+
           <p className="caption mt-6 max-w-[22rem]">
             Think you know me from my code? Think again.
           </p>
+
+          {/* portrait */}
+          <motion.div
+            className="relative mt-10 w-full max-w-[18rem] overflow-hidden border border-border"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-10%" }}
+            transition={{ duration: 1.2, ease: EASE }}
+          >
+            <motion.img
+              src="/paridhi-night.jpg"
+              alt="Paridhi Sharma"
+              className="aspect-[4/5] h-full w-full object-cover object-center grayscale"
+              whileHover={{
+                scale: 1.03,
+                filter: "grayscale(0%)",
+              }}
+              transition={{
+                duration: 1,
+                ease: EASE,
+              }}
+            />
+
+            {/* subtle exhibition overlay */}
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0 bg-foreground/[0.04]"
+            />
+
+            <div className="absolute inset-x-4 bottom-4 flex items-baseline justify-between">
+              <span className="marker">FIG_00</span>
+              <span className="marker">THE BUILDER</span>
+            </div>
+          </motion.div>
+
           <div className="mt-10">
             <Magnetic
               onClick={shuffle}
@@ -78,32 +135,63 @@ export function FunFacts() {
           </div>
         </Fade>
 
-        <Fade className="md:col-span-7 md:col-start-6" delay={0.15}>
+        {/* ── right: random fact ─────────────────────────────────────── */}
+        <Fade
+          className="md:col-span-7 md:col-start-6"
+          delay={0.15}
+        >
           <div className="relative min-h-[16rem] border border-border p-8 md:min-h-[15rem] md:p-12">
+
             <span
               aria-hidden
               className="display pointer-events-none absolute right-6 top-2 select-none text-[7rem] leading-none text-foreground/[0.06] md:text-[9rem]"
             >
               ?
             </span>
+
             <AnimatePresence mode="wait">
               <motion.div
                 key={`${fact.id}-${count}`}
-                initial={{ opacity: 0, y: 16, filter: "blur(6px)" }}
-                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                exit={{ opacity: 0, y: -12, filter: "blur(6px)" }}
-                transition={{ duration: 0.9, ease: EASE }}
+                initial={{
+                  opacity: 0,
+                  y: 16,
+                  filter: "blur(6px)",
+                }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                  filter: "blur(0px)",
+                }}
+                exit={{
+                  opacity: 0,
+                  y: -12,
+                  filter: "blur(6px)",
+                }}
+                transition={{
+                  duration: 0.9,
+                  ease: EASE,
+                }}
                 aria-live="polite"
               >
                 <p className="marker">{fact.kicker}</p>
+
                 <p className="lede mt-6 max-w-[30em]">
-                  <FactBody text={fact.text} links={fact.links} />
+                  <FactBody
+                    text={fact.text}
+                    links={fact.links}
+                  />
                 </p>
               </motion.div>
             </AnimatePresence>
+
             <div className="mt-10 flex items-baseline justify-between rule-t pt-5">
-              <span className="marker">Fact_{String(index + 1).padStart(2, "0")}</span>
-              <span className="marker">Drawn {count + 1}×</span>
+              <span className="marker">
+                Fact_{String(index + 1).padStart(2, "0")}
+              </span>
+
+              <span className="marker">
+                Drawn {count + 1}×
+              </span>
             </div>
           </div>
         </Fade>
