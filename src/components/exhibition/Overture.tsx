@@ -120,7 +120,7 @@ export function Overture({ onEnter }: { onEnter: () => void }) {
             aria-hidden="true"
             className="absolute inset-0 h-full w-full object-cover grayscale"
             style={{
-              objectPosition: "50% 60%",
+              objectPosition: "50% 65%",
             }}
             initial={{
               opacity: 0,
