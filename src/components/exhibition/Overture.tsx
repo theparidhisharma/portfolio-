@@ -102,7 +102,7 @@ export function Overture({ onEnter }: { onEnter: () => void }) {
 
           {/* ── subtle portrait atmosphere ─────────────────────────────── */}
           <motion.img
-            src="/images/paridhi-night.jpg"
+            src="/public/paridhi-night.jpg"
             alt=""
             aria-hidden="true"
             className="absolute inset-0 h-full w-full object-cover object-center grayscale"
