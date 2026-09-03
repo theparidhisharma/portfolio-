@@ -46,7 +46,7 @@ export function SplitLine({
   return (
     <span ref={ref} className={className}>
       {words.map((word, i) => (
-        <span key={`${word}-${i}`} className="inline-block overflow-hidden align-bottom">
+        <span key={`${word}-${i}`} className="reveal-word">
           <motion.span
             className="inline-block"
             initial={{ y: "110%", opacity: 0 }}
