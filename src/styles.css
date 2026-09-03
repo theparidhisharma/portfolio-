@@ -293,6 +293,14 @@
   }
 }
 
+@utility reveal-word {
+  display: inline-block;
+  overflow: hidden;
+  align-items: baseline;
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+}
+
 @utility story-link {
   position: relative;
   display: inline-block;
