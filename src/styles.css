@@ -293,12 +293,13 @@
   }
 }
 
-@utility reveal-word {
+@@utility reveal-word {
   display: inline-block;
   overflow: hidden;
   vertical-align: bottom;
-  padding-bottom: 0.12em;
-  margin-bottom: -0.12em;
+  line-height: 1.05;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
 }
 
 @utility story-link {
