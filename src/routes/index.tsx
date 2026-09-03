@@ -584,7 +584,7 @@ function WorkPlate({
             </p>
           </Fade>
 
-          <h3 className="display mt-8 text-[11vw] leading-[0.85] md:text-[5vw]">
+          <h3 className="display mt-8 text-[11vw] leading-[1] md:text-[5vw]">
             <SplitLine
               text={work.title}
               stagger={0.12}
